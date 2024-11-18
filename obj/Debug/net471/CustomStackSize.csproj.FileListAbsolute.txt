@@ -1,0 +1,17 @@
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\CustomStackSize.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\CustomStackSize.pdb
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\IAmFuture.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\Sirenix.OdinInspector.Attributes.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\Sirenix.OdinInspector.Modules.Unity.Addressables.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\Sirenix.Serialization.Config.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\Sirenix.Serialization.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\bin\Debug\net471\UnityEngine.CoreModule.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.csproj.AssemblyReference.cache
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\MyPluginInfo.cs
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.GeneratedMSBuildEditorConfig.editorconfig
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.AssemblyInfoInputs.cache
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.AssemblyInfo.cs
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.csproj.CoreCompileInputs.cache
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomSt.6E716BAF.Up2Date
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.dll
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.pdb
