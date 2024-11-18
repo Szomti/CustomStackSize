@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using BepInEx;
 using HarmonyLib;
 using IAmFuture.Data.Items;
@@ -32,8 +30,7 @@ public class Plugin : BaseUnityPlugin
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ItemStack), MethodType.Constructor, typeof(int), typeof(ItemObject), typeof(float), typeof(float))]
-        private static void Prefix(ref ItemStack __instance, int ID, ItemObject newObject, ref float count,
-            ref float maxCount)
+        private static void Prefix(ref ItemStack __instance, int ID, ItemObject newObject, ref float count, ref float maxCount)
         {
             maxCount = Math.Min(MaxStackSize, GlobalMax);
         }
