@@ -15,3 +15,4 @@ E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\Custom
 E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomSt.6E716BAF.Up2Date
 E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.dll
 E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.pdb
+E:\Foldery\Code\Mods - I am future\Other\CustomStackSize\obj\Debug\net471\CustomStackSize.sourcelink.json

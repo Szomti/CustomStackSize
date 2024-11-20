@@ -12,11 +12,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomStackSize")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("0.2.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.2.0+675f6e7280f71bb1d5ce42bf9be80acb694a0f52")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("0.3.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.3.0+d321d3329f74ee18a3d1dc57edb33770f1fa2e8b")]
 [assembly: System.Reflection.AssemblyProductAttribute("My first plugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomStackSize")]
-[assembly: System.Reflection.AssemblyVersionAttribute("0.2.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("0.3.0.0")]
 
 // Wygenerowane przez klasę WriteCodeFragment programu MSBuild.
 

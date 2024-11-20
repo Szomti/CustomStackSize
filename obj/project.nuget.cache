@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qzNF6b7NEbA=",
+  "dgSpecHash": "5fjYmDocUt4=",
   "success": true,
   "projectFilePath": "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\CustomStackSize.csproj",
   "expectedPackageFiles": [
@@ -21,7 +21,7 @@
       "code": "NU1603",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "CustomStackSize depends on UnityEngine.Modules (>= 3.16.13812255) but UnityEngine.Modules 3.16.13812255 was not found. UnityEngine.Modules 4.0.0 was resolved instead.",
+      "message": "CustomStackSize jest zależny od UnityEngine.Modules (>= 3.16.13812255), ale UnityEngine.Modules 3.16.13812255 nie został znaleziony. Zamiast tego UnityEngine.Modules 4.0.0 został rozwiązany.",
       "libraryId": "UnityEngine.Modules",
       "targetGraphs": [
         ".NETFramework,Version=v4.7.1"

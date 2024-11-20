@@ -5,11 +5,8 @@ using System.Reflection.Emit;
 using BepInEx;
 using HarmonyLib;
 using IAmFuture.Data.Items;
-using IAmFuture.Data.SaveLoad;
 using IAmFuture.Data.StorageItems;
-using IAmFuture.Gameplay.Electricity;
 using IAmFuture.Gameplay.Storages;
-using MonoMod.Utils.Cil;
 
 namespace CustomStackSize;
 
@@ -17,15 +14,14 @@ namespace CustomStackSize;
 [BepInProcess("I Am Future.exe")]
 public class Plugin : BaseUnityPlugin
 {
-    private const int GlobalMax = 1000000;
-
     private void Awake()
     {
         var globalItemStackSize = Config.Bind("Custom Global Item Stack Size",
             "globalItemStackSize",
-            100f,
-            "The custom stack size for every item in the game (MAX: " + GlobalMax + ")");
+            100,
+            "The custom stack size for every item in the game (MAX: " + SeparateItemStack.GlobalMax + ")");
         CustomGlobalItemStack.MaxStackSize = Math.Abs(globalItemStackSize.Value);
+        SeparateItemStackHandler.GetInstance().LoadSeparateItemStacksConfigs(Config);
         var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
         harmony.PatchAll(typeof(RestoreStorageTranspiler));
         harmony.PatchAll(typeof(CustomGlobalItemStack));
@@ -37,8 +33,7 @@ public class Plugin : BaseUnityPlugin
     {
         [HarmonyTranspiler]
         [HarmonyPatch(typeof(Storage), "Restore")]
-        private static IEnumerable<CodeInstruction> Transpiler(
-            IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
             var codes = new List<CodeInstruction>(instructions);
             var prevConstructor = typeof(ItemStack).GetConstructor([typeof(ItemObject), typeof(float), typeof(float)]);
@@ -74,11 +69,6 @@ public class Plugin : BaseUnityPlugin
                 break;
             }
 
-            foreach (var code in codes)
-            {
-                Console.WriteLine(code.ToString());
-            }
-
             return codes;
         }
     }
@@ -92,9 +82,16 @@ public class Plugin : BaseUnityPlugin
         [HarmonyPatch(typeof(ItemStack), MethodType.Constructor, typeof(int), typeof(ItemObject), typeof(float), typeof(float))]
         private static void Prefix(ref ItemStack __instance, int ID, ItemObject newObject, ref float count, ref float maxCount)
         {
-            if (ID >= 0)
+            if (ID < 0) return;
+            var newValue = SeparateItemStackHandler.GetInstance().CustomValueForItemStack(newObject.ID);
+            if (newValue == SeparateItemStack.GameDefaultBase) return;
+            if (newValue == SeparateItemStack.GlobalValueBase)
             {
-                maxCount = Math.Min(MaxStackSize, GlobalMax);
+                maxCount = MaxStackSize;
+            }
+            else
+            {
+                maxCount = newValue;
             }
         }
     }
