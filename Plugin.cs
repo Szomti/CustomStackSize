@@ -4,9 +4,12 @@ using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using HarmonyLib;
+using IAmFuture.Data;
 using IAmFuture.Data.Items;
 using IAmFuture.Data.StorageItems;
 using IAmFuture.Gameplay.Storages;
+using IAmFuture.UserInterface;
+using IAmFuture.UserInterface.GameplayMenu;
 
 namespace CustomStackSize;
 
@@ -20,12 +23,60 @@ public class Plugin : BaseUnityPlugin
             "globalItemStackSize",
             100,
             "The custom stack size for every item in the game (MAX: " + SeparateItemStack.GlobalMax + ")");
-        CustomGlobalItemStack.MaxStackSize = Math.Abs(globalItemStackSize.Value);
-        SeparateItemStackHandler.GetInstance().LoadSeparateItemStacksConfigs(Config);
+        SeparateItemStackHandler.MaxStackSize = Math.Abs(globalItemStackSize.Value);
+        SeparateItemStackHandler.LoadSeparateItemStacksConfigs(Config);
         var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
         harmony.PatchAll(typeof(RestoreStorageTranspiler));
+        harmony.PatchAll(typeof(ResolveOnApplyTranspiler));
         harmony.PatchAll(typeof(CustomGlobalItemStack));
         Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+    }
+
+    [HarmonyPatch(typeof(GUI_StackDivider))]
+    internal class ResolveOnApplyTranspiler
+    {
+        [HarmonyTranspiler]
+        [HarmonyPatch(typeof(GUI_StackDivider), "ResolveOnApply")]
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
+        {
+            var codes = new List<CodeInstruction>(instructions);
+            var idGetter = typeof(ItemObject).GetMethod("get_ID", BindingFlags.Instance | BindingFlags.Public);
+            var customStackValueMethod = typeof(SeparateItemStackHandler)
+                .GetMethod("CustomValueForItemStack", BindingFlags.Public | BindingFlags.Static);
+            var stackCapacityGetter =
+                typeof(ItemObject).GetMethod("get_StackCapacity", BindingFlags.Instance | BindingFlags.Public);
+            if (idGetter == null || customStackValueMethod == null)
+            {
+                return codes;
+            }
+
+            Label skipAssignmentLabel = generator.DefineLabel();
+
+            for (int i = 0; i < codes.Count; i++)
+            {
+                if (codes[i].opcode != OpCodes.Ldloc_3) continue;
+                if (codes[i + 1].opcode == OpCodes.Brfalse || codes[i + 1].opcode == OpCodes.Brfalse_S) continue;
+                codes.RemoveRange(i, 3);
+                codes.InsertRange(i, [
+                    new CodeInstruction(OpCodes.Ldloc_3),
+                    new CodeInstruction(OpCodes.Callvirt, idGetter),
+                    new CodeInstruction(OpCodes.Callvirt, customStackValueMethod),
+                    new CodeInstruction(OpCodes.Stloc_2),
+                    new CodeInstruction(OpCodes.Ldloc_2),
+                    new CodeInstruction(OpCodes.Ldc_I4_1),
+                    new CodeInstruction(OpCodes.Bge_S, skipAssignmentLabel),
+                    new CodeInstruction(OpCodes.Ldloc_3),
+                    new CodeInstruction(OpCodes.Callvirt, stackCapacityGetter),
+                    new CodeInstruction(OpCodes.Stloc_2),
+                    new CodeInstruction(OpCodes.Nop).WithLabels(skipAssignmentLabel),
+                ]);
+
+                break;
+            }
+
+            return codes;
+        }
     }
 
     [HarmonyPatch(typeof(Storage))]
@@ -33,7 +84,8 @@ public class Plugin : BaseUnityPlugin
     {
         [HarmonyTranspiler]
         [HarmonyPatch(typeof(Storage), "Restore")]
-        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
+        private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions,
+            ILGenerator generator)
         {
             var codes = new List<CodeInstruction>(instructions);
             var prevConstructor = typeof(ItemStack).GetConstructor([typeof(ItemObject), typeof(float), typeof(float)]);
@@ -76,23 +128,16 @@ public class Plugin : BaseUnityPlugin
     [HarmonyPatch(typeof(ItemStack))]
     internal class CustomGlobalItemStack
     {
-        public static float MaxStackSize;
-
         [HarmonyPrefix]
-        [HarmonyPatch(typeof(ItemStack), MethodType.Constructor, typeof(int), typeof(ItemObject), typeof(float), typeof(float))]
-        private static void Prefix(ref ItemStack __instance, int ID, ItemObject newObject, ref float count, ref float maxCount)
+        [HarmonyPatch(typeof(ItemStack), MethodType.Constructor, typeof(int), typeof(ItemObject), typeof(float),
+            typeof(float))]
+        private static void Prefix(ref ItemStack __instance, int ID, ItemObject newObject, ref float count,
+            ref float maxCount)
         {
             if (ID < 0) return;
-            var newValue = SeparateItemStackHandler.GetInstance().CustomValueForItemStack(newObject.ID);
+            var newValue = SeparateItemStackHandler.CustomValueForItemStack(newObject.ID);
             if (newValue == SeparateItemStack.GameDefaultBase) return;
-            if (newValue == SeparateItemStack.GlobalValueBase)
-            {
-                maxCount = MaxStackSize;
-            }
-            else
-            {
-                maxCount = newValue;
-            }
+            maxCount = newValue;
         }
     }
 }

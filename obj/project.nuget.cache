@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5fjYmDocUt4=",
+  "dgSpecHash": "UZFZAcNCI/E=",
   "success": true,
-  "projectFilePath": "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\CustomStackSize.csproj",
+  "projectFilePath": "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\CustomStackSize.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Szomti\\.nuget\\packages\\bepinex.analyzers\\1.0.8\\bepinex.analyzers.1.0.8.nupkg.sha512",
     "C:\\Users\\Szomti\\.nuget\\packages\\bepinex.baselib\\5.4.20\\bepinex.baselib.5.4.20.nupkg.sha512",

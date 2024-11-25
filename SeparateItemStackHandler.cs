@@ -7,35 +7,30 @@ namespace CustomStackSize;
 
 public class SeparateItemStackHandler
 {
-    private static SeparateItemStackHandler _instance;
-    private readonly List<SimplifiedSeparateItemStack> _items = [];
+    public static int MaxStackSize;
+    private static readonly List<SimplifiedSeparateItemStack> Items = [];
 
     private SeparateItemStackHandler()
     {
     }
 
-    public static SeparateItemStackHandler GetInstance()
-    {
-        return _instance ??= new SeparateItemStackHandler();
-    }
-
-    public void LoadSeparateItemStacksConfigs(ConfigFile configFile)
+    public static void LoadSeparateItemStacksConfigs(ConfigFile configFile)
     {
         foreach (var separateItemStack in SeparateItemStack.AllItemStacks)
         {
             var result = separateItemStack.GetFromConfig(configFile);
             if (result.Value == 0) continue;
-            _items.Add(result);
+            Items.Add(result);
         }
     }
 
-    public int CustomValueForItemStack(string gameObjectId)
+    public static int CustomValueForItemStack(string gameObjectId)
     {
-        foreach (var simplified in _items.Where(simplified => gameObjectId.ToLower().Contains(simplified.GameObjectId)))
+        foreach (var simplified in Items.Where(simplified => gameObjectId.ToLower().Contains(simplified.GameObjectId)))
         {
             return simplified.Value;
         }
 
-        return SeparateItemStack.GlobalValueBase;
+        return MaxStackSize;
     }
 }

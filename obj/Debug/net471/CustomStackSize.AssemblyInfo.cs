@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CustomStackSize")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("0.3.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.3.0+d321d3329f74ee18a3d1dc57edb33770f1fa2e8b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("0.3.0+7e072c0f333a0d43fe378a2d1bf48705006dd115")]
 [assembly: System.Reflection.AssemblyProductAttribute("My first plugin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CustomStackSize")]
 [assembly: System.Reflection.AssemblyVersionAttribute("0.3.0.0")]

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\CustomStackSize.csproj": {}
+    "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\CustomStackSize.csproj": {}
   },
   "projects": {
-    "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\CustomStackSize.csproj": {
+    "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\CustomStackSize.csproj": {
       "version": "0.3.0",
       "restore": {
-        "projectUniqueName": "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\CustomStackSize.csproj",
+        "projectUniqueName": "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\CustomStackSize.csproj",
         "projectName": "CustomStackSize",
-        "projectPath": "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\CustomStackSize.csproj",
+        "projectPath": "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\CustomStackSize.csproj",
         "packagesPath": "C:\\Users\\Szomti\\.nuget\\packages\\",
-        "outputPath": "E:\\Foldery\\Code\\Mods - I am future\\Other\\CustomStackSize\\obj\\",
+        "outputPath": "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Szomti\\AppData\\Roaming\\NuGet\\NuGet.Config"
