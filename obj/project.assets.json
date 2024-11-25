@@ -703,7 +703,7 @@
     "C:\\Users\\Szomti\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "0.3.0",
+    "version": "0.4.0",
     "restore": {
       "projectUniqueName": "E:\\Foldery\\Code\\Mods - I am future\\CustomStackSize\\CustomStackSize.csproj",
       "projectName": "CustomStackSize",
