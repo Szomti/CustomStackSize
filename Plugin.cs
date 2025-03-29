@@ -10,6 +10,11 @@ using IAmFuture.Data.StorageItems;
 using IAmFuture.Gameplay.Storages;
 using IAmFuture.UserInterface;
 using IAmFuture.UserInterface.GameplayMenu;
+using IAmFuture.UserInterface.Buildings;
+using IAmFuture.Gameplay.Buildings;
+using TMPro;
+using UnityEngine.UI;
+using System.Linq;
 
 namespace CustomStackSize;
 
@@ -125,7 +130,7 @@ public class Plugin : BaseUnityPlugin
         }
     }
 
-    [HarmonyPatch(typeof(ItemStack))]
+    [HarmonyPatch]
     internal class CustomGlobalItemStack
     {
         [HarmonyPrefix]
@@ -138,6 +143,20 @@ public class Plugin : BaseUnityPlugin
             var newValue = SeparateItemStackHandler.CustomValueForItemStack(newObject.ID);
             if (newValue == SeparateItemStack.GameDefaultBase) return;
             maxCount = newValue;
+        }
+
+        [HarmonyPrefix]
+        [HarmonyPatch(typeof(GUI_HugeLootStoragePopover), "UpdateView")]
+        public static bool GUI_HugeLootStoragePopover_UpdateView_Prefix(ref GUI_HugeLootStoragePopover __instance)
+        {
+            TextMeshProUGUI capacityText = (TextMeshProUGUI)AccessTools.Field(typeof(GUI_HugeLootStoragePopover), "capacityText").GetValue(__instance);
+            Image fillBar = (Image)AccessTools.Field(typeof(GUI_HugeLootStoragePopover), "fillBar").GetValue(__instance);
+            HugeItemStorageBuilding storage = (HugeItemStorageBuilding)AccessTools.Field(typeof(GUI_HugeLootStoragePopover), "storage").GetValue(__instance);
+            int configuredValue = SeparateItemStackHandler.CustomValueForItemStack(storage.StoredItemType.ID);
+            int stackSize = configuredValue == SeparateItemStack.GameDefaultBase ? 1 : configuredValue;
+            fillBar.fillAmount = storage.PercentageFilled;
+            capacityText.text = storage.Storage.Stacks.Sum(stack => stack.Count).ToString() + "/" + (storage.Storage.Capacity * stackSize).ToString();
+            return false;
         }
     }
 }
