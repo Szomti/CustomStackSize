@@ -3,8 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net471</TargetFramework>
     <AssemblyName>CustomStackSize</AssemblyName>
-    <Product>My first plugin</Product>
-    <Version>0.4.0</Version>
+    <Product>Plugin for I Am Future game</Product>
+    <Version>0.5.0</Version>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <LangVersion>latest</LangVersion>
     <RestoreAdditionalProjectSources>
@@ -19,7 +19,7 @@
     <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
     <PackageReference Include="BepInEx.Core" Version="5.*" />
     <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*" />
-    <PackageReference Include="UnityEngine.Modules" Version="3.16.13812255" IncludeAssets="compile" />
+    <PackageReference Include="UnityEngine.Modules" Version="4.0.0" IncludeAssets="compile" />
   </ItemGroup>
   
   <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -44,6 +44,12 @@
     </Reference>
     <Reference Include="Sirenix.OdinInspector.Modules.Unity.Addressables">
       <HintPath>./lib/Sirenix.OdinInspector.Modules.Unity.Addressables.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>./lib/Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>./lib/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>

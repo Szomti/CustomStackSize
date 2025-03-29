@@ -4,11 +4,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using BepInEx;
 using HarmonyLib;
-using IAmFuture.Data;
 using IAmFuture.Data.Items;
 using IAmFuture.Data.StorageItems;
 using IAmFuture.Gameplay.Storages;
-using IAmFuture.UserInterface;
 using IAmFuture.UserInterface.GameplayMenu;
 using IAmFuture.UserInterface.Buildings;
 using IAmFuture.Gameplay.Buildings;
@@ -30,11 +28,11 @@ public class Plugin : BaseUnityPlugin
             "The custom stack size for every item in the game (MAX: " + SeparateItemStack.GlobalMax + ")");
         SeparateItemStackHandler.MaxStackSize = Math.Abs(globalItemStackSize.Value);
         SeparateItemStackHandler.LoadSeparateItemStacksConfigs(Config);
-        var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
+        var harmony = new Harmony(PluginInfo.PluginGuid);
         harmony.PatchAll(typeof(RestoreStorageTranspiler));
         harmony.PatchAll(typeof(ResolveOnApplyTranspiler));
         harmony.PatchAll(typeof(CustomGlobalItemStack));
-        Logger.LogInfo($"Plugin {MyPluginInfo.PLUGIN_GUID} is loaded!");
+        Logger.LogInfo($"Plugin {PluginInfo.PluginGuid} is loaded!");
     }
 
     [HarmonyPatch(typeof(GUI_StackDivider))]
@@ -155,7 +153,7 @@ public class Plugin : BaseUnityPlugin
             int configuredValue = SeparateItemStackHandler.CustomValueForItemStack(storage.StoredItemType.ID);
             int stackSize = configuredValue == SeparateItemStack.GameDefaultBase ? 1 : configuredValue;
             fillBar.fillAmount = storage.PercentageFilled;
-            capacityText.text = storage.Storage.Stacks.Sum(stack => stack.Count).ToString() + "/" + (storage.Storage.Capacity * stackSize).ToString();
+            capacityText.text = storage.Storage.Stacks.Sum(stack => stack.Count) + "/" + (storage.Storage.Capacity * stackSize);
             return false;
         }
     }

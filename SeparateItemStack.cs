@@ -49,9 +49,7 @@ public abstract class SeparateItemStack
         protected override string Section => "Separate Custom";
         protected override string Key => "planksStack";
         protected override int CustomStackSize => GameDefaultBase;
-
-        protected override string Description =>
-            "Setting custom value multiplies the storage capacity (it will still say it's max 10)";
+        protected override string Description => "Setting custom value multiplies the storage capacity";
     }
 
     private class IronSeparate : SeparateItemStack
@@ -60,9 +58,7 @@ public abstract class SeparateItemStack
         protected override string Section => "Separate Custom";
         protected override string Key => "sheetMetalStack";
         protected override int CustomStackSize => GameDefaultBase;
-
-        protected override string Description =>
-            "Setting custom value multiplies the storage capacity (it will still say it's max 10)";
+        protected override string Description => "Setting custom value multiplies the storage capacity";
     }
 
     private class GlassSeparate : SeparateItemStack
@@ -71,9 +67,7 @@ public abstract class SeparateItemStack
         protected override string Section => "Separate Custom";
         protected override string Key => "plexiGlassStack";
         protected override int CustomStackSize => GameDefaultBase;
-
-        protected override string Description =>
-            "Setting custom value multiplies the storage capacity (it will still say it's max 10)";
+        protected override string Description => "Setting custom value multiplies the storage capacity";
     }
 
     private class DigitalStorageSeparate : SeparateItemStack
@@ -82,8 +76,7 @@ public abstract class SeparateItemStack
         protected override string Section => "Critical";
         protected override string Key => "digitalStorageStack";
         protected override int CustomStackSize => GameDefaultBase;
-
         protected override string Description =>
-            "Setting custom value not recommended as decoder uses entire stack for 1 reward";
+            "Setting custom value is not recommended as decoder uses entire stack for 1 reward";
     }
 }
